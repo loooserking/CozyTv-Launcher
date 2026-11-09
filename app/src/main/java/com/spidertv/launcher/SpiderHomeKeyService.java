@@ -11,7 +11,6 @@ import android.view.KeyEvent;
  * redirects only these:
  * <ul>
  *   <li>Settings (KEYCODE_SETTINGS, or any code listed in spider_config.xml / config.json) to system Settings,</li>
- *   <li>the Mi button (KEYCODE_BUTTON_2, scancode 150) to the recent-apps screen,</li>
  *   <li>KEYCODE_ALL_APPS to this launcher.</li>
  * </ul>
  * Everything else passes through. Enable it over adb with
@@ -24,11 +23,7 @@ public class SpiderHomeKeyService extends android.accessibilityservice.Accessibi
     static final int PASS = 0;
     static final int EAT = 1;
     static final int GO_SETTINGS = 2;
-    static final int GO_RECENTS = 3;
     static final int GO_HOME = 4;
-
-    /** Scancode sent by the Xiaomi Mi button. */
-    private static final int XIAOMI_MI_SCAN = 150;
 
     private int[] settingsScans = new int[0];
     private int[] settingsCodes = new int[0];
@@ -60,8 +55,6 @@ public class SpiderHomeKeyService extends android.accessibilityservice.Accessibi
         final int action;
         if (code == KeyEvent.KEYCODE_SETTINGS || contains(scans, scan) || contains(codes, code)) {
             action = GO_SETTINGS;
-        } else if (code == KeyEvent.KEYCODE_BUTTON_2 || scan == XIAOMI_MI_SCAN) {
-            action = GO_RECENTS;
         } else if (code == KeyEvent.KEYCODE_ALL_APPS) {
             action = GO_HOME;
         } else {
@@ -79,8 +72,6 @@ public class SpiderHomeKeyService extends android.accessibilityservice.Accessibi
         Intent next = null;
         if (result == GO_SETTINGS) {
             next = new Intent(android.provider.Settings.ACTION_SETTINGS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        } else if (result == GO_RECENTS) {
-            next = new Intent(this, RecentAppsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         } else if (result == GO_HOME) {
             next = new Intent(Intent.ACTION_MAIN)
                     .addCategory(Intent.CATEGORY_HOME)

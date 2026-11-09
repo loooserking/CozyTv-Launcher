@@ -27,8 +27,6 @@ import java.util.List;
 /**
  * The Spider theme's app row: tiles hanging on threads in a wave, the focused one in the centre slot
  * under the hero, who holds it with a web line. Right/Left: the hero shoots silk at the next app,
- * yanks it into the centre and flings the old one aside, where it swings on its thread (Shoot, Pull,
- * Settle keyframes of the FigCraft design). Everything is drawn in design px (1920x1080) and scaled.
  */
 final class SpiderCarousel extends View {
 
@@ -92,8 +90,6 @@ final class SpiderCarousel extends View {
     private int focus;
     private Listener listener;
     private final SilkRope silk = new SilkRope();
-
-    // step animation
     private ValueAnimator anim;
     private float p;
     private int dir;          // +1 Right, -1 Left
@@ -103,7 +99,6 @@ final class SpiderCarousel extends View {
     private boolean animations = true, reducedMotion;
 
     // art
-    private final Bitmap heroHang, heroShoot, heroPull;
     private Bitmap shadowBmp, glowBmp;
     private float shadowPad, glowPad;
     private final float baseW = s(115f), focusW = s(177f);
@@ -133,11 +128,6 @@ final class SpiderCarousel extends View {
         super(ctx);
         setFocusable(true);
         setFocusableInTouchMode(true);
-        BitmapFactory.Options o = new BitmapFactory.Options();
-        o.inScaled = false;
-        heroHang = BitmapFactory.decodeResource(getResources(), R.drawable.spider_hero_hang, o);
-        heroShoot = BitmapFactory.decodeResource(getResources(), R.drawable.spider_hero_shoot, o);
-        heroPull = BitmapFactory.decodeResource(getResources(), R.drawable.spider_hero_pull, o);
         // unit-square gradients (-0.5..0.5), scaled to each tile with a local matrix
         glass = new LinearGradient(0, -0.5f, 0, 0.5f, 0xFF3A3458, 0xFF37305A, Shader.TileMode.CLAMP);
         dark = new LinearGradient(0, -0.5f, 0, 0.5f, 0xFF221A1B, 0xFF151012, Shader.TileMode.CLAMP);
@@ -399,12 +389,6 @@ final class SpiderCarousel extends View {
             rest(st, slot);
             drawTile(c, it, st);
         }
-        drawHero(c, heroHang, false);
-        if (focused() != null) {
-            rest(st, CENTER);
-            float[] h = hand(124, 662, heroHang, false);
-            silk.rope(c, s(h[0]), s(h[1]), s(topX(st) + 2.5f), s(topY(st) + 4f), 0.04f, 1f, true, 3.6f, 1f, 1f);
-        }
     }
 
     private static float clamp(float v) {
@@ -520,45 +504,6 @@ final class SpiderCarousel extends View {
                 }
             }
         }
-
-        // hero and silk
-        Item target = itemAt(fromFocus + dir), old = itemAt(fromFocus);
-        T tt = st, to = gh;
-        pose(tt, dir, e, v);
-        pose(to, 0, e, v);
-        boolean mirror = dir < 0;
-        if (p < P1) {
-            drawHero(c, heroShoot, mirror);
-            float q = clamp(p / (P1 * 0.75f));
-            float[] h = hand(449, 378, heroShoot, mirror);
-            float half = tt.sz / 2f;
-            float ex = dir > 0 ? tt.cx - half + 15f : tt.cx + half - 15f, ey = tt.cy - half + 18f;
-            if (old != null) {
-                float k = p / P1;
-                silk.rope(c, s(HERO_X), s(352f), s(topX(to) + 2.5f), s(topY(to) + 4f), lerp(0.04f, 0.18f, k), 1f,
-                        false, lerp(3.6f, 2.6f, k), 1f, 1f);
-            }
-            if (target != null) {
-                silk.rope(c, s(h[0]), s(h[1]), s(ex), s(ey), 0.22f, 1f, true, 3.6f, 1f, easeOut(q));
-            }
-        } else if (p < P2) {
-            drawHero(c, heroPull, mirror);
-            float[] h = hand(262, 255, heroPull, mirror);
-            if (old != null) {
-                silk.rope(c, s(HERO_X), s(352f), s(topX(to) + 2.5f), s(topY(to) + 4f), 0.25f, 1f, false, 2.6f,
-                        1 - clamp((p - P1) / 0.1f), 1f);
-            }
-            if (target != null) {
-                silk.rope(c, s(h[0]), s(h[1]), s(topX(tt) + 4f), s(topY(tt) + 6f), 0f, 0.6f, true, 4f, 1f, 1f);
-            }
-        } else {
-            drawHero(c, heroHang, false);
-            float[] h = hand(124, 662, heroHang, false);
-            if (target != null) {
-                silk.rope(c, s(h[0]), s(h[1]), s(topX(tt) + 2.5f), s(topY(tt) + 4f), lerp(0.12f, 0.04f, easeOut(v)),
-                        1f, true, 3.6f, 1f, 1f);
-            }
-        }
     }
 
     private static float topX(T t) {
@@ -569,33 +514,10 @@ final class SpiderCarousel extends View {
         return t.cy - (t.sz / 2f) * (float) Math.cos(Math.toRadians(t.rot));
     }
 
-    /** A point on a hero pose (crop px) in concept coords. */
-    private float[] hand(float ax, float ay, Bitmap pose, boolean mirror) {
-        float left = HERO_X - 140f * HERO_K;
-        float x = left + ax * HERO_K, y = HERO_TOP + ay * HERO_K;
-        if (mirror) x = 2 * HERO_X - x;
-        return new float[]{x, y};
-    }
-
-    private void drawHero(Canvas c, Bitmap pose, boolean mirror) {
-        silk.thread(c, s(HERO_X), s(-2f), s(HERO_X), s(HERO_TOP + 6f), 1f);
-        if (pose == null) return;
-        float left = HERO_X - 140f * HERO_K;
-        r.set(s(left), s(HERO_TOP), s(left + pose.getWidth() * HERO_K), s(HERO_TOP + pose.getHeight() * HERO_K));
-        c.save();
-        if (mirror) c.scale(-1f, 1f, s(HERO_X), 0f);
-        bmp.setAlpha(255);
-        c.drawBitmap(pose, null, r, bmp);
-        c.restore();
-    }
-
     private void drawTile(Canvas c, Item it, T t) {
         if (t.alpha <= 0.004f) return;
         float cx = s(t.cx), cy = s(t.cy), w = s(t.sz), h = w / 2f;
         float f = t.f;
-        if (!t.ghost && t.threadAlpha > 0.004f) {
-            silk.thread(c, s(t.anchor), s(-2f), s(topX(t)), s(topY(t) + 2f), t.alpha * t.threadAlpha);
-        }
         int save = c.save();
         boolean layer = t.alpha < 0.999f;
         if (layer) {

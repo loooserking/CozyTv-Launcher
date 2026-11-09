@@ -44,13 +44,10 @@ public class SpiderHomeActivity extends android.app.Activity {
     /** A second Home press within this many ms of the first opens recents. */
     static final long HOME_TWICE_MS = 1200;
     private static final String CHANNEL_MIME = "vnd.android.cursor.item/channel";
-    private static final String PAIR_REMOTE_ACTION = "com.google.android.intent.action.CONNECT_INPUT";
     private static final String MI_SETTINGS_PKG = "com.xiaomi.mitv.settings";
     private static final String TV_SETTINGS_PKG = "com.android.tv.settings";
     private static final ComponentName MI_SETTINGS =
             new ComponentName(MI_SETTINGS_PKG, MI_SETTINGS_PKG + ".entry.MainActivity");
-    private static final ComponentName TV_PAIRING =
-            new ComponentName(TV_SETTINGS_PKG, TV_SETTINGS_PKG + ".accessories.AddAccessoryActivity");
     private static final String HARDWARE_TUNER_PATTERN = ".*/HW\\d+$";
     /** Source-row state meaning "show no status". */
     private static final int NO_STATE = -1;
@@ -176,11 +173,6 @@ public class SpiderHomeActivity extends android.app.Activity {
         }
 
         @Override
-        public void bluetooth() {
-            launchPairing();
-        }
-
-        @Override
         public void network() {
             launchNetworkTarget();
         }
@@ -205,25 +197,7 @@ public class SpiderHomeActivity extends android.app.Activity {
     protected void onNewIntent(Intent incoming) {
         super.onNewIntent(incoming);
         if (incoming == null || !incoming.hasCategory(Intent.CATEGORY_HOME)) return;
-        final long at = android.os.SystemClock.uptimeMillis();
-        final long gap = at - previousHomeAt;
-        Log.e(TAG, "onNewIntent: delta=" + gap);
-        if (gap < HOME_TWICE_MS) {
-            previousHomeAt = 0;
-            if (launchRecents()) return;
-        }
-        previousHomeAt = at;
         if (home != null) home.home();
-    }
-
-    /** Opens the recents screen; false if starting it threw. */
-    private boolean launchRecents() {
-        try {
-            startActivity(new Intent(this, RecentAppsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        } catch (Exception any) {
-            return false;
-        }
-        return true;
     }
 
     @Override
@@ -279,32 +253,6 @@ public class SpiderHomeActivity extends android.app.Activity {
     @Override
     public void onBackPressed() {
         // Home is the bottom of the stack; Back does nothing here.
-    }
-
-    // ---- remote keys ----------------------------------------------------------------------------
-
-    /** Keys that bring up recents while Home is in front (Mi button, app switch, menu). */
-    static boolean opensRecents(int code, int scan) {
-        return code == KeyEvent.KEYCODE_BUTTON_2
-                || code == KeyEvent.KEYCODE_APP_SWITCH
-                || code == KeyEvent.KEYCODE_MENU
-                || scan == 150
-                || scan == 580;
-    }
-
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent key) {
-        final int code = key.getKeyCode();
-        final int scan = key.getScanCode();
-        Log.e(TAG, "dispatch: action=" + key.getAction() + " key=" + code + " scan=" + scan);
-        if (!opensRecents(code, scan)) return super.dispatchKeyEvent(key);
-        if (key.getAction() != KeyEvent.ACTION_UP) return true;
-        try {
-            startActivity(new Intent(this, RecentAppsActivity.class).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-        } catch (Exception problem) {
-            Log.e(TAG, "startActivity failed", problem);
-        }
-        return true;
     }
 
     // ---- network pill ---------------------------------------------------------------------------
@@ -419,15 +367,6 @@ public class SpiderHomeActivity extends android.app.Activity {
 
     private void toastUnavailable() {
         Toast.makeText(this, R.string.spider_unavailable, Toast.LENGTH_SHORT).show();
-    }
-
-    /** Bluetooth pill: the TV's pairing search, then its pairing screen by name, then Bluetooth settings. */
-    private void launchPairing() {
-        final PackageManager pm = getPackageManager();
-        Intent target = new Intent(PAIR_REMOTE_ACTION);
-        if (target.resolveActivity(pm) == null) target = new Intent().setComponent(TV_PAIRING);
-        if (target.resolveActivity(pm) == null) target = settingsIntent(Settings.ACTION_BLUETOOTH_SETTINGS);
-        start(target);
     }
 
     // ---- source picker --------------------------------------------------------------------------

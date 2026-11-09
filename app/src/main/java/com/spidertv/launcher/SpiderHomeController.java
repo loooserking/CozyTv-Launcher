@@ -33,8 +33,6 @@ final class SpiderHomeController implements SpiderCarousel.Listener {
     interface Actions {
         void inputs();
 
-        void bluetooth();
-
         void network();
 
         void settings();
@@ -51,7 +49,7 @@ final class SpiderHomeController implements SpiderCarousel.Listener {
             R.id.spider_tile_youtube_glow, R.id.spider_tile_youtube,
             R.id.spider_thread_camera, R.id.spider_tile_camera_shadow, R.id.spider_tile_camera,
             R.id.spider_thread_appstore, R.id.spider_tile_appstore_shadow, R.id.spider_tile_appstore,
-            R.id.spider_thread_hero, R.id.spider_hero, R.id.spider_rope};
+            R.id.spider_tile_appstore_shadow, R.id.spider_tile_appstore};
 
     /** Remembered across activity recreation, like the tvOS grid's focus. */
     private static String lastFocusKey;
@@ -63,7 +61,7 @@ final class SpiderHomeController implements SpiderCarousel.Listener {
     private final FrameLayout root;
     private final SpiderCarousel row;
     private final TextView title, greeting;
-    private final View btnInputs, btnWifi, btnBluetooth, btnSettings;
+    private final View btnInputs, btnWifi, btnSettings;
 
     SpiderHomeController(Activity act, SpiderPrefs cfg, Actions actions) {
         this.act = act;
@@ -75,7 +73,6 @@ final class SpiderHomeController implements SpiderCarousel.Listener {
         greeting = act.findViewById(R.id.spiderGreeting);
         btnInputs = act.findViewById(R.id.spiderSourcesPill);
         btnWifi = act.findViewById(R.id.spiderNetworkPill);
-        btnBluetooth = act.findViewById(R.id.btnBluetooth);
         btnSettings = act.findViewById(R.id.spiderSettingsPill);
         FlipClockView clock = act.findViewById(R.id.flipClock);
         clock.setAnimations(cfg.motionOn && !cfg.motionGentle);
@@ -95,13 +92,12 @@ final class SpiderHomeController implements SpiderCarousel.Listener {
 
         btnInputs.setOnClickListener(v -> actions.inputs());
         btnWifi.setOnClickListener(v -> actions.network());
-        btnBluetooth.setOnClickListener(v -> actions.bluetooth());
         btnSettings.setOnClickListener(v -> actions.settings());
         btnSettings.setOnLongClickListener(v -> {
             actions.settingsMenu();
             return true;
         });
-        View[] pill = {btnInputs, btnWifi, btnBluetooth, btnSettings};
+        View[] pill = {btnInputs, btnWifi, btnSettings};
         for (View b : pill) {
             b.setFocusable(true);   // TextViews: reachable with D-pad Up from the row
             b.setOnFocusChangeListener((v, focused) -> {
@@ -131,7 +127,7 @@ final class SpiderHomeController implements SpiderCarousel.Listener {
     void onResume(boolean rebuild) {
         if (rebuild) reload();
         updateGreeting();
-        if (!btnInputs.hasFocus() && !btnWifi.hasFocus() && !btnBluetooth.hasFocus() && !btnSettings.hasFocus()) row.requestFocus();
+        if (!btnInputs.hasFocus() && !btnWifi.hasFocus() && !btnSettings.hasFocus()) row.requestFocus();
     }
 
     /** Home pressed while Home is in front: back to the first app. */

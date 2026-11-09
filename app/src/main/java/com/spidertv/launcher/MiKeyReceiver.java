@@ -25,9 +25,11 @@ public class MiKeyReceiver extends BroadcastReceiver {
         Log.i(TAG, "GLOBAL_BUTTON: action=" + event.getAction() + " key=" + keyCode + " scan=" + scanCode);
         if (keyCode == KeyEvent.KEYCODE_BUTTON_2 || scanCode == 150 || scanCode == 580) {
             if (event.getAction() == KeyEvent.ACTION_UP) {
-                Intent recents = new Intent(context, RecentAppsActivity.class);
-                recents.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(recents);
+                // Recently Used Apps removed - redirect to Home
+                Intent home = new Intent(Intent.ACTION_MAIN);
+                home.addCategory(Intent.CATEGORY_HOME);
+                home.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(home);
             }
         }
     }

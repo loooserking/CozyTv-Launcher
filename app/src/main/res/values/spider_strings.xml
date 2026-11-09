@@ -13,7 +13,6 @@
     <string name="spider_net_offline">Offline</string>
     <string name="spider_vpn_on">VPN</string>
     <string name="spider_vpn_off">VPN off</string>
-    <string name="bluetooth">Bluetooth</string>
     <string name="spider_settings_label">Settings</string>
 
     <!-- ===== Source picker sheet ===== -->

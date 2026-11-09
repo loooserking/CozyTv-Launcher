@@ -153,39 +153,6 @@
         android:focusable="true"
         android:contentDescription="App Store" />
 
-    <ImageView
-        android:id="@+id/spider_thread_hero"
-        android:layout_width="2.5dp"
-        android:layout_height="90.5dp"
-        android:layout_marginStart="619dp"
-        android:layout_marginTop="0dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/spider_thread_hero"
-        android:importantForAccessibility="no" />
-
-    <!-- Hero hanging upside down (PNG cut-out; the only bitmap in the theme). -->
-    <ImageView
-        android:id="@+id/spider_hero"
-        android:layout_width="79.5dp"
-        android:layout_height="190dp"
-        android:layout_marginStart="581.5dp"
-        android:layout_marginTop="85dp"
-        android:translationX="0.055dp"
-        android:translationY="0.115dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/spider_hero_hang"
-        android:importantForAccessibility="no" />
-
-    <ImageView
-        android:id="@+id/spider_rope"
-        android:layout_width="36dp"
-        android:layout_height="65dp"
-        android:layout_marginStart="608dp"
-        android:layout_marginTop="260.5dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/spider_rope"
-        android:importantForAccessibility="no" />
-
     <!-- Flip clock + date, top-left (concept v2: cards at 96,96 px; date at 100,376 px). -->
     <com.spidertv.launcher.FlipClockView
         android:id="@+id/flipClock"
@@ -257,15 +224,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="28dp"
             android:text="@string/spider_net_wifi"
-            android:focusable="true" />
-
-        <TextView
-            android:id="@+id/btnBluetooth"
-            style="@style/SpiderText.Pill"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="28dp"
-            android:text="@string/bluetooth"
             android:focusable="true" />
 
         <TextView
