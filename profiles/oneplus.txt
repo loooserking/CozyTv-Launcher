@@ -16,4 +16,4 @@ com.tcl.browser
 com.google.android.feedback
 com.google.android.tvrecommendations
 
-# Stock Google TV Launcher (Replaced by Spider TV Launcher)
+# Stock Google TV Launcher (Replaced by TVLauncher)

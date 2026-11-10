@@ -1,57 +1,32 @@
-# Spider TV Launcher for Android TV
+# TVLauncher for Android TV
 
 <p align="center">
-  <a href="https://github.com/Fardin7798/Spider-Tv-Launcher/releases/latest"><img src="https://img.shields.io/github/v/release/Fardin7798/Spider-Tv-Launcher?color=success&label=Release" alt="Release"></a>
-  <a href="https://github.com/Fardin7798/Spider-Tv-Launcher/releases/latest/download/app-release.apk"><img src="https://img.shields.io/badge/Download-APK%20(~450%20KB)-brightgreen?logo=android" alt="Download APK"></a>
+  <a href="https://github.com/loooserking/CozyTv-Launcher/releases/latest"><img src="https://img.shields.io/github/v/release/loooserking/CozyTv-Launcher?color=success&label=Release" alt="Release"></a>
+  <a href="https://github.com/loooserking/CozyTv-Launcher/releases/latest/download/app-release.apk"><img src="https://img.shields.io/badge/Download-APK%20(~450%20KB)-brightgreen?logo=android" alt="Download APK"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-green.svg" alt="License"></a>
   <a href="https://developer.android.com/about/versions/pie"><img src="https://img.shields.io/badge/Android%20TV-9.0%2B-blue.svg" alt="Android TV"></a>
   <img src="https://img.shields.io/badge/APK%20Size-~450%20KB-success.svg" alt="Size">
 </p>
 
 
-An ultra-lightweight, ad-free Android TV launcher with a fan-made Spider theme: a web-swing app carousel, live flip clock, quick controls, a native **Recent Apps Switcher**, and one-click debloat.
+An ultra-lightweight Android TV launcher with a clean white home screen, frosted translucent cards, subtle gray shadows, minimal red accents, a live flip clock, automatically discovered app tiles, and quick Wi-Fi and Settings controls.
 
-> 🕷️ **Fan-made, unofficial tribute.** All artwork, including the hero, is original and made for this project. Not affiliated with, endorsed or sponsored by Marvel or Sony.
-
----
-
-<p align="center">
-  <img src="docs/SpiderHome.gif" alt="Home Screen" width="850">
-</p>
-<p align="center"><em>Fluid Dynamic Carousel Launcher</em></p>
+TVLauncher is an independent, open-source project and is not affiliated with any television manufacturer or streaming platform.
 
 ---
 
 ## ✨ Features
 
-- 🕷️ **Fluid Spider Carousel:** Night skyline backdrop with original hanging-hero art on a silk thread, and directional spring physics as you move between apps.
+- 📺 **Premium App Home:** White surfaces, frosted translucent cards, subtle gray shadows, minimal red focus accents, and automatically discovered Android TV apps with their actual icons and labels.
 - 🕰️ **Live Flip Clock:** On the home screen, plus a matching **Clock** screensaver.
-- 🎛️ **Quick Controls:** A top pill for Inputs, Wi-Fi and Bluetooth (pair remotes and accessories straight from Home).
-- 🔄 **Recent Apps Switcher:** Smooth horizontal carousel of running apps with live task switching and quick task controls.
+- 🎛️ **Quick Controls:** Wi-Fi/network status and a Settings shortcut, navigable with a standard TV remote.
 - ⚡ **Zero Volume Lag (Hardware Preservation):** Unlike accessibility-based remappers that break Android's `InputDispatcher` repeat timer, our launcher preserves 100% hardware-speed volume hold acceleration.
-- 🎮 **Remote Gesture Shortcuts:** Double-press the Home button from anywhere to immediately bring up the App Switcher.
 - 🪶 **Ultra-Lightweight (~450 KB):** Pure Java, zero analytics, zero telemetry, zero background battery drain.
 - 🧹 **Safe Debloat Ready:** Compatible with ADB debloat lists to disable manufacturer bloatware (PatchWall, telemetry, recommendation rows) without root.
 
 ---
 
-## 📸 Screenshots
-
-| | |
-|---|---|
-| ![Spider Home Carousel](docs/SpiderHome.gif) | ![Recent Apps Switcher](docs/SpiderRecents.gif) |
-| *Fluid Dynamic Carousel (Directional Focus & Art)* | *Native App Switcher (Double-Press Home)* |
----
-
 ## 📺 Running On A Real TV
-
-Recorded on my own TV: the home carousel, Recent Apps, Clear all and back to Home.
-
-<p align="center">
-  <img src="docs/SpiderOnMyTV.gif" alt="Spider TV running on a real Xiaomi Mi TV" width="640">
-</p>
-
-<p align="center"><a href="docs/SpiderOnMyTV.mp4">▶️ Watch the full clip (MP4)</a></p>
 
 **Tested on:**
 
@@ -63,11 +38,11 @@ Recorded on my own TV: the home carousel, Recent Apps, Clear all and back to Hom
 | RAM | 1 GB |
 | Screen | 1280 × 720 (HD) |
 
-Home stays on Spider TV after setup. Tested it on another TV? Open an issue or PR and tell us the model so we can add it here.
+Home stays on TVLauncher after setup. Tested it on another TV? Open an issue or PR and tell us the model so we can add it here.
 
 ## 🚀 1-Click Universal TV Setup
 
-Transform any Android TV or Google TV into an ultra-clean, ad-free experience with automated debloating, SmartTube installation, and the ~450 KB Spider TV Launcher.
+Transform any Android TV or Google TV into an ultra-clean, ad-free experience with automated debloating, SmartTube installation, and the ~450 KB TVLauncher.
 
 ### 📋 Prerequisites & Requirements
 
@@ -114,7 +89,7 @@ bash reports/apply_<ts>.sh
 - 💾 **Creates an instant full-state safety snapshot** of all currently enabled packages, default Home launcher, animation scales, and system settings.
 - 🧹 **Safely disables manufacturer bloatware, sponsored recommendation rows, and telemetry** via `pm disable-user`.
 - 📺 **Replaces stock ad-heavy YouTube with official SmartTube** (Ad-free, SponsorBlock, TV-optimized).
-- 🕷️ **Installs and sets Spider TV Launcher** as the permanent default home activity.
+- **Installs and sets TVLauncher** as the permanent default home activity.
 
 ---
 
@@ -132,13 +107,12 @@ adb connect <TV_IP>:5555
 adb install -r app/build/outputs/apk/release/app-release.apk
 
 # 4. Set as permanent default Home launcher
-adb shell cmd package set-home-activity --user 0 com.spidertv.launcher/.SpiderHomeActivity
-
-# 5. Grant usage access for Recent Apps Switcher
-adb shell appops set com.spidertv.launcher GET_USAGE_STATS allow
+adb shell cmd package set-home-activity --user 0 com.tvlauncher.app/.LauncherHomeActivity
 ```
 
-Then on the TV, open **Settings ➔ Accessibility** and turn on **Home button** (double-press Home for Recents) and **Spider TV Launcher** (remote shortcut keys). Pick **Clock** under Screensaver if you want the flip-clock screensaver.
+Then on the TV, open **Settings ➔ Accessibility** and turn on **Remote keys** only if Settings/All Apps compatibility is needed. Pick **Clock** under Screensaver if you want the flip-clock screensaver.
+
+> **Upgrade note:** Builds made with the previous application ID install separately. Android does not automatically migrate their app data or launcher preferences.
 
 ---
 
@@ -178,28 +152,26 @@ To restore your TV back to its exact untouched factory state:
 - 🔄 Re-enables all original system packages.
 - 📺 Restores your original stock launcher as the default Home.
 - ⚡ Reverts animation scales back to original values.
-- 🕷️ Offers interactive clean uninstallation of Spider TV Launcher and SmartTube.
+- Offers interactive clean uninstallation of TVLauncher and SmartTube.
 ---
 
-## 🕸️ What's Inside
+## What's Inside
 
-- 🕷️ Spider night carousel theme with original hanging-hero art, silk thread and live flip clock
-- 🔄 Spider Recents task switcher (`RecentAppsActivity`) with 16:9 TV banners
-- 🎮 TV Bluetooth remotes & accessories pairing from the top pill
+- White glass home screen with a flip clock, rounded app tiles, and minimal red accents
+- 📺 Dynamic Android TV app tiles with package-change refresh
 - ⚡ Zero-lag volume hold acceleration
-- 🎮 Remote double-press Home gesture
 - 🧹 Audit, debloat, backup and full restore scripts with per-brand profiles
 
 ## 🤝 Contributing
 
 Contributions are welcome! Report a bug, suggest a new suit, add a debloat profile for your TV, or pick up a `good first issue`. Read the [Contributing guide](CONTRIBUTING.md) to get started, and please follow the [Code of Conduct](CODE_OF_CONDUCT.md).
 
-## ⚖️ Fan-Made Project & Legal Disclaimer
+## ⚖️ Project & Legal Disclaimer
 
-Spider TV Launcher is an **unofficial, fan-made tribute**: an independent, non-commercial, open-source project for personal TV customization.
+TVLauncher is an independent, non-commercial, open-source project for personal TV customization.
 
-- **Original artwork:** All art in this project, including the hero, the night backdrop, the app icon and the TV banner, was made by the author for this project.
-- **No affiliation:** This project is not affiliated with, endorsed, sponsored or approved by Marvel Entertainment, LLC, Sony Pictures Entertainment Inc., or any related company. "Spider-Man" and related names and characters are trademarks of their respective owners.
+- **Original artwork:** The app icon and TV banner were created for this project.
+- **No affiliation:** This project is not affiliated with, endorsed, sponsored or approved by any television manufacturer or streaming platform.
 - **Third-party trademarks:** App names and logos shown (such as YouTube, Netflix, Prime Video, Disney+ Hotstar, SmartTube, Google Play / Android) belong to their respective owners.
 - Distributed free of charge under the MIT License.
 

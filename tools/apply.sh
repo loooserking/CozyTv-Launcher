@@ -53,7 +53,7 @@ if [ ! -f "$APK_PATH" ]; then
     if [ ! -f "$APK_PATH" ]; then
         echo "    Fetching pre-compiled release APK from GitHub Releases..."
         mkdir -p "$(dirname "$APK_PATH")"
-        if ! curl -sSL -f -o "$APK_PATH" "https://github.com/Fardin7798/Spider-Tv-Launcher/releases/latest/download/app-release.apk"; then
+        if ! curl -sSL -f -o "$APK_PATH" "https://github.com/loooserking/CozyTv-Launcher/releases/latest/download/app-release.apk"; then
             echo "Error: Failed to obtain release APK. Aborting — TV left completely untouched." >&2
             exit 1
         fi
@@ -67,7 +67,7 @@ fi
 # Check Android SDK version
 SDK_VER=$(adb -s "$TARGET_DEV" shell getprop ro.build.version.sdk | tr -d '\r')
 if [ -n "$SDK_VER" ] && [ "$SDK_VER" -lt 28 ]; then
-    echo "Error: TV is running Android SDK $SDK_VER. Spider TV Launcher requires SDK 28+ (Android 9.0+)." >&2
+    echo "Error: TV is running Android SDK $SDK_VER. TVLauncher requires SDK 28+ (Android 9.0+)." >&2
     echo "Aborting — TV left completely untouched." >&2
     exit 1
 fi
@@ -90,7 +90,7 @@ echo "    Initial Home package detected: $ORIG_HOME"
 
 if [ "$WANTS_LAUNCHER" = true ]; then
     # ── PHASE 2: Install Launcher & Launch Test (Stock is still intact) ──
-    echo "==> [Phase 2] Installing Spider TV Launcher (Stock launcher is still alive)..."
+    echo "==> [Phase 2] Installing TVLauncher (Stock launcher is still alive)..."
     INSTALL_OUT=$(adb -s "$TARGET_DEV" install -r "$APK_PATH" 2>&1) || true
     echo "    $INSTALL_OUT"
     case "$INSTALL_OUT" in
@@ -104,32 +104,31 @@ if [ "$WANTS_LAUNCHER" = true ]; then
             exit 1 ;;
     esac
 
-    echo "==> [Phase 2] Testing Spider TV Launcher startup (pre-disable verification)..."
-    START_OUT=$(adb -s "$TARGET_DEV" shell am start -W -n com.spidertv.launcher/.SpiderHomeActivity 2>&1) || true
+    echo "==> [Phase 2] Testing TVLauncher startup (pre-disable verification)..."
+    START_OUT=$(adb -s "$TARGET_DEV" shell am start -W -n com.tvlauncher.app/.LauncherHomeActivity 2>&1) || true
     echo "    $START_OUT"
     if ! echo "$START_OUT" | grep -qF "Status: ok"; then
-        echo "Error: Spider TV Launcher failed startup test. Stock launcher left untouched. Aborting." >&2
+        echo "Error: TVLauncher failed startup test. Stock launcher left untouched. Aborting." >&2
         exit 1
     fi
     echo "    Launcher verified runnable."
 
-    echo "==> [Phase 2] Granting permissions for Recent Apps Switcher and Remote Keys..."
-    adb -s "$TARGET_DEV" shell appops set com.spidertv.launcher GET_USAGE_STATS allow >/dev/null 2>&1 || true
-    adb -s "$TARGET_DEV" shell settings put secure enabled_accessibility_services com.spidertv.launcher/.SpiderHomeKeyService >/dev/null 2>&1 || true
+    echo "==> [Phase 2] Enabling remote key handling..."
+    adb -s "$TARGET_DEV" shell settings put secure enabled_accessibility_services com.tvlauncher.app/.LauncherHomeKeyService >/dev/null 2>&1 || true
     adb -s "$TARGET_DEV" shell settings put secure accessibility_enabled 1 >/dev/null 2>&1 || true
-    echo "    ✅ Permissions granted: GET_USAGE_STATS (Recent Apps) & SpiderHomeKeyService."
+    echo "    ✅ Remote key handling enabled: LauncherHomeKeyService."
 
     # ── PHASE 3: Set Home Activity & Verify ─────────────────────────
-    echo "==> [Phase 3] Setting Spider TV Launcher as default Home..."
-    adb -s "$TARGET_DEV" shell cmd package set-home-activity --user 0 com.spidertv.launcher/.SpiderHomeActivity >/dev/null 2>&1 || true
+    echo "==> [Phase 3] Setting TVLauncher as default Home..."
+    adb -s "$TARGET_DEV" shell cmd package set-home-activity --user 0 com.tvlauncher.app/.LauncherHomeActivity >/dev/null 2>&1 || true
 
     HOME_NOW=$(adb -s "$TARGET_DEV" shell $HOME_QUERY 2>/dev/null | tail -n 1 | tr -d '\r' | cut -d/ -f1 || true)
     echo "    Current Home owner: $HOME_NOW"
 
     # Only disable old stock launcher if Home is verified and old stock is NOT protected
-    if [ "$HOME_NOW" = "com.spidertv.launcher" ]; then
-        echo "    ✅ Home verified: com.spidertv.launcher"
-        if [ -n "$ORIG_HOME" ] && [ "$ORIG_HOME" != "com.spidertv.launcher" ] && [ "$ORIG_HOME" != "none" ] && [ "$ORIG_HOME" != "android" ]; then
+    if [ "$HOME_NOW" = "com.tvlauncher.app" ]; then
+        echo "    ✅ Home verified: com.tvlauncher.app"
+        if [ -n "$ORIG_HOME" ] && [ "$ORIG_HOME" != "com.tvlauncher.app" ] && [ "$ORIG_HOME" != "none" ] && [ "$ORIG_HOME" != "android" ]; then
             if is_protected "$ORIG_HOME"; then
                 echo "    🛡️  Original Home ($ORIG_HOME) is in protected list — leaving enabled."
             else
@@ -137,14 +136,14 @@ if [ "$WANTS_LAUNCHER" = true ]; then
                 adb -s "$TARGET_DEV" shell pm disable-user --user 0 "$ORIG_HOME" >/dev/null 2>&1 || true
                 # Verify Home again after disabling stock
                 POST_DISABLE_HOME=$(adb -s "$TARGET_DEV" shell $HOME_QUERY 2>/dev/null | tail -n 1 | tr -d '\r' | cut -d/ -f1 || true)
-                if [ "$POST_DISABLE_HOME" != "com.spidertv.launcher" ]; then
+                if [ "$POST_DISABLE_HOME" != "com.tvlauncher.app" ]; then
                     echo "⚠️ Warning: Home changed unexpectedly to $POST_DISABLE_HOME. Re-enabling $ORIG_HOME..."
                     adb -s "$TARGET_DEV" shell pm enable --user 0 "$ORIG_HOME" >/dev/null 2>&1 || true
                 fi
             fi
         fi
     else
-        echo "Error: Home failed to switch to com.spidertv.launcher (currently '$HOME_NOW')." >&2
+        echo "Error: Home failed to switch to com.tvlauncher.app (currently '$HOME_NOW')." >&2
         echo "Stock launcher left untouched. Aborting before debloat to protect TV." >&2
         exit 1
     fi

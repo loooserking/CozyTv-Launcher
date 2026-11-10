@@ -1,0 +1,40 @@
+<resources>
+    <!-- ===== Identity / system entries ===== -->
+    <string name="app_name">TVLauncher</string>
+    <string name="launcher_my_apps">My Apps</string>
+    <string name="launcher_empty_apps">No TV apps are available.</string>
+    <string name="tvlauncher_dream_title">Clock</string>
+    <string name="tvlauncher_homekey_title">Remote keys</string>
+    <string name="tvlauncher_homekey_summary">Handles remote Settings and All Apps keys when enabled.</string>
+    <string name="tvlauncher_inputkey_summary">Opens the input switcher when the remote\'s Input button is pressed.</string>
+
+    <!-- ===== Top-right pills ===== -->
+    <string name="tvlauncher_sources_label">Inputs</string>
+    <string name="tvlauncher_net_wifi">Wi-Fi</string>
+    <string name="tvlauncher_net_ethernet">Ethernet</string>
+    <string name="tvlauncher_net_offline">Offline</string>
+    <string name="tvlauncher_vpn_on">VPN</string>
+    <string name="tvlauncher_vpn_off">VPN off</string>
+    <string name="tvlauncher_settings_label">Settings</string>
+
+    <!-- ===== Source picker sheet ===== -->
+    <string name="tvlauncher_choose_source">Inputs</string>
+    <string name="tvlauncher_tuner_label">Live TV</string>
+    <string name="tvlauncher_source_connected">Connected</string>
+    <string name="tvlauncher_source_disconnected">No device</string>
+    <string name="tvlauncher_no_sources">No inputs found</string>
+
+    <!-- ===== Greeting, by hour ===== -->
+    <string name="tvlauncher_greet_morning">Good morning</string>
+    <string name="tvlauncher_greet_afternoon">Good afternoon</string>
+    <string name="tvlauncher_greet_evening">Good evening</string>
+    <string name="tvlauncher_greet_night">Good night</string>
+
+    <!-- java.text date pattern shared by home and screensaver -->
+    <string name="tvlauncher_date_pattern">EEEE  d MMMM</string>
+
+    <!-- ===== Errors and hints ===== -->
+    <string name="tvlauncher_cant_open">Can\'t open %1$s</string>
+    <string name="tvlauncher_unavailable">Not available on this TV</string>
+    <string name="tvlauncher_home_picker_hint">Select your original home to stop using TVLauncher as Home, or TVLauncher to switch back. The original launcher must be enabled and your TV must provide a home picker; use the restore script first if it was disabled.</string>
+</resources>

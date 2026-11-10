@@ -67,7 +67,7 @@ tv() { adb -s "$DEV" shell "$@" 2>/dev/null | tr -d '\r' || true; }
 tv_raw() { adb -s "$DEV" shell "$@" 2>/dev/null || true; }
 
 echo "=========================================================="
-echo "  🔍 Spider TV Launcher — Read-Only TV Audit"
+echo "  🔍 TVLauncher — Read-Only TV Audit"
 echo "  No changes will be made to your TV."
 echo "=========================================================="
 echo ""
@@ -413,7 +413,7 @@ cat << PLAN2
 [x] DISABLE_YOUTUBE
 [x] INSTALL_SMARTTUBE
 
-# ── LAUNCHER: install Spider TV Launcher & set as Home ────────────
+# ── LAUNCHER: install TVLauncher & set as Home ────────────
 [x] INSTALL_LAUNCHER
 
 # ── ANIMATIONS: speed up TV (0.5x scale) ────────────────────────

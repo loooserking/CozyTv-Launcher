@@ -13,5 +13,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Spider-Tv-Launcher"
+rootProject.name = "TVLauncher"
 include ':app'

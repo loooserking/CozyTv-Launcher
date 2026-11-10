@@ -1,6 +1,6 @@
 # Code of Conduct
 
-Spider TV Launcher is a friendly fan project. Everyone is welcome, whatever their experience, background or identity.
+TVLauncher is a friendly fan project. Everyone is welcome, whatever their experience, background or identity.
 
 ## Be a good neighbour
 

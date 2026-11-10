@@ -8,7 +8,7 @@ $ErrorActionPreference = "Stop"
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 Write-Host "==========================================================" -ForegroundColor Cyan
-Write-Host "       🍎 Universal Spider TV Launcher Setup Suite         " -ForegroundColor Cyan
+Write-Host "       🍎 Universal TVLauncher Setup Suite         " -ForegroundColor Cyan
 Write-Host "==========================================================" -ForegroundColor Cyan
 
 # Check for bash (Git Bash / WSL / MSYS2)

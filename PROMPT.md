@@ -7,7 +7,7 @@
 ### Copy Everything Below This Line:
 
 ```markdown
-I want to transform my Android TV / Google TV into an ultra-clean, ad-free experience using this repository (https://github.com/Fardin7798/Spider-Tv-Launcher).
+I want to transform my Android TV / Google TV into an ultra-clean, ad-free experience using this repository (https://github.com/loooserking/CozyTv-Launcher).
 
 Please act as an autonomous Android TV deployment engineer and guide me through the setup step-by-step.
 
@@ -52,9 +52,9 @@ Once I approve:
 
 ### Step 5: Verify Everything & Explain Remote Shortcuts
 1. Test Home key: `adb shell input keyevent 3`.
-2. Confirm TV is now displaying the Spider TV Launcher.
+2. Confirm TV is now displaying the TVLauncher.
 3. Explain the remote shortcuts to me:
-   - **Double-Press Home:** Brings up the native Recent Apps Switcher.
+   - **Home / Back:** Uses the TV's normal Android navigation behavior.
    - **Volume Hold:** 100% hardware-speed volume acceleration (zero lag).
    - **Restoration:** Remind me that `./tools/restore.sh backups/<device_snapshot_directory>` can revert all changes anytime.
 ```

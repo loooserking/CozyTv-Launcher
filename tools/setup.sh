@@ -7,7 +7,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 ROOT_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
 
 echo "=========================================================="
-echo "       🍎 Universal Spider TV Launcher Setup Suite         "
+echo "       🍎 Universal TVLauncher Setup Suite         "
 echo "=========================================================="
 
 # 1. Parse arguments safely

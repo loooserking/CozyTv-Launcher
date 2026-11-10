@@ -1,6 +1,6 @@
-# CLAUDE.md — Operating Guidelines for Claude Code & AI Assistants
+open# CLAUDE.md — Operating Guidelines for Claude Code & AI Assistants
 
-This repository contains **Spider TV Launcher**, an ultra-lightweight (~450 KB), fan-made Spider-themed Android TV / Google TV launcher and safety debloat suite.
+This repository contains **TVLauncher**, an ultra-lightweight Android TV / Google TV launcher and safety debloat suite.
 
 ## 🛠️ Unified Tool Suite (Always Use These, Never Invent Custom ADB Scripts)
 
@@ -13,15 +13,15 @@ This repository contains **Spider TV Launcher**, an ultra-lightweight (~450 KB),
    - Executes approved plan with atomic safety:
      - Pre-flight APK checks
      - Timestamped safety snapshot in `backups/<device>_<ts>/`
-     - Spider TV Launcher install & launch test (`am start -W`)
-     - Auto-grants `GET_USAGE_STATS` (Recent Apps) & enables `SpiderHomeKeyService`
-     - Verified Home handover to `com.spidertv.launcher` with auto-rollback
+     - TVLauncher install & launch test (`am start -W`)
+   - Remote key compatibility through `LauncherHomeKeyService` (Settings/All Apps only)
+     - Verified Home handover to `com.tvlauncher.app` with auto-rollback
      - Debloats approved packages (strictly skipping `tools/protected.txt` & HDMI inputs)
      - SmartTube install & stock YouTube disable
 
 3. **`./tools/restore.sh <snapshot_dir> [TV_IP]`**:
    - 100% rollback: re-enables all system packages, restores stock launcher, reverts animations.
-   - Cleans up SmartTube and Spider TV Launcher on request.
+   - Cleans up SmartTube and TVLauncher on request.
 
 ## 🛡️ Critical Guardrails for AI Assistants
 

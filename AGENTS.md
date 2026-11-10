@@ -6,11 +6,10 @@ This document is the single source of truth for AI agents (Antigravity, Claude C
 
 ## 🎯 Primary Goal
 Transform any connected Android TV or Google TV (Sony, TCL, Xiaomi, OnePlus, Hisense, Shield, Chromecast, Fire TV) into an ultra-clean, ad-free experience with:
-1. Fluid Spider-Man night carousel theme with hanging hero art, flip clock, and squircle icons.
-2. Native Recent Apps Switcher (`RecentAppsActivity`) with double-press Home gesture.
-3. 100% hardware-speed volume hold acceleration preserved (zero accessibility lag).
-4. Official Ad-Free SmartTube replacing stock YouTube.
-5. Safe, reversible multi-brand debloating.
+1. A clean white home screen with frosted translucent cards, subtle gray shadows, minimal red accents, a flip clock, and dynamically discovered TV app tiles.
+2. 100% hardware-speed volume hold acceleration preserved (zero accessibility lag).
+3. Official Ad-Free SmartTube replacing stock YouTube.
+4. Safe, reversible multi-brand debloating.
 
 ---
 
@@ -42,8 +41,8 @@ The repository provides a single, unified tool suite. Always use these tools rat
    - Executes approved plan with atomic safety:
      - Pre-flight APK download & verification
      - Safety state snapshot in `backups/<device>_<ts>/`
-     - Spider TV Launcher install & launch test (`am start -W`)
-     - Home handover to `com.spidertv.launcher` with auto-rollback
+     - TVLauncher install & launch test (`am start -W`)
+     - Home handover to `com.tvlauncher.app` with auto-rollback
      - Debloat approved packages (strictly skipping `tools/protected.txt`)
      - SmartTube installation & stock YouTube disable
 
@@ -52,7 +51,7 @@ The repository provides a single, unified tool suite. Always use these tools rat
    - Re-enables all original system packages.
    - Resets animation scales back to original values.
    - Re-enables stock YouTube.
-   - Offers clean uninstallation of Spider TV Launcher and SmartTube.
+   - Offers clean uninstallation of TVLauncher and SmartTube.
 
 ---
 
@@ -62,7 +61,7 @@ The repository provides a single, unified tool suite. Always use these tools rat
    - Always honor `tools/protected.txt` (Chromecast, Assistant, Gboard, Wi-Fi, System UI, GMS, setup wizards).
    - Never disable stock launchers via generic debloat; launcher handover is exclusively handled by `apply.sh`.
 2. **Preserve Linux `InputDispatcher` Repeat Rate (Volume Keys):**
-   - Accessibility services (`SpiderHomeKeyService`, `SpiderInputKeyService`) exist exclusively for Home double-press and TV input switching.
+   - Accessibility services (`LauncherHomeKeyService`, `LauncherInputKeyService`) exist for remote Settings/All Apps handling and TV input switching.
    - Volume and navigation keys must NEVER be intercepted or consumed in accessibility services to preserve Android's native repeat queue and hold acceleration.
 3. **Always Ensure Reversibility:**
    - Always verify that a snapshot exists before touching the TV.

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="launcher_background_top">#FFFDFDFE</color>
+    <color name="launcher_background_bottom">#FFF3F4F6</color>
+    <color name="launcher_tile">#EFFFFFFF</color>
+    <color name="launcher_elevated">#FFFFFFFF</color>
+    <color name="launcher_glass">#CFFFFFFF</color>
+    <color name="launcher_hairline">#26000000</color>
+    <color name="launcher_accent">#FFE33B45</color>
+    <color name="launcher_text_primary">#FF202126</color>
+    <color name="launcher_text_secondary">#FF62656D</color>
+    <color name="tvlauncher_icon_background">#FFFFFFFF</color>
+</resources>

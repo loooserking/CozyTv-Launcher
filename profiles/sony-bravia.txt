@@ -22,4 +22,4 @@ com.sony.dtv.multiscreendemo
 com.google.android.feedback
 com.google.android.tv.bugreportsender
 
-# Stock Launcher (Replaced by Spider TV Launcher)
+# Stock Launcher (Replaced by TVLauncher)

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/launcherRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/launcher_home_background"
+    android:clipChildren="false">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipChildren="false"
+        android:orientation="vertical"
+        android:paddingStart="56dp"
+        android:paddingTop="34dp"
+        android:paddingEnd="56dp"
+        android:paddingBottom="28dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.tvlauncher.app.FlipClockView
+                    android:id="@+id/flipClock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextClock
+                    android:id="@+id/launcherDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="2dp"
+                    android:layout_marginTop="12dp"
+                    android:format12Hour="EEEE, d MMMM"
+                    android:format24Hour="EEEE, d MMMM"
+                    android:fontFamily="@font/tvlauncher_inter_medium"
+                    android:includeFontPadding="false"
+                    android:textColor="@color/launcher_text_secondary"
+                    android:textSize="15sp" />
+            </LinearLayout>
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:id="@+id/statusPanel"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:background="@drawable/launcher_pill_background"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp">
+
+                <TextView
+                    android:id="@+id/networkStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/tvlauncher_inter_medium"
+                    android:includeFontPadding="false"
+                    android:maxWidth="240dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@string/tvlauncher_net_wifi"
+                    android:textColor="@color/launcher_text_secondary"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/settingsButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/tvlauncher_inter_medium"
+                    android:includeFontPadding="false"
+                    android:text="@string/tvlauncher_settings_label"
+                    android:textColor="@color/launcher_text_secondary"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/appsTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
+            android:fontFamily="@font/tvlauncher_inter_bold"
+            android:includeFontPadding="false"
+            android:text="@string/launcher_my_apps"
+            android:textColor="@color/launcher_text_primary"
+            android:textSize="28sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/appsRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="190dp"
+            android:layout_marginStart="-10dp"
+            android:layout_marginTop="24dp"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:descendantFocusability="afterDescendants"
+            android:overScrollMode="never"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:scrollbars="none" />
+
+        <TextView
+            android:id="@+id/emptyApps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:fontFamily="@font/tvlauncher_inter_medium"
+            android:includeFontPadding="false"
+            android:text="@string/launcher_empty_apps"
+            android:textColor="@color/launcher_text_secondary"
+            android:textSize="16sp"
+            android:visibility="gone" />
+    </LinearLayout>
+</FrameLayout>

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # restore.sh — Complete System State & Home Restoration Engine
 # Reverts debloat, restores original Home launcher, resets animation scales,
-# and optionally uninstalls Spider TV Launcher / SmartTube.
+# and optionally uninstalls TVLauncher / SmartTube.
 set -euo pipefail
 
 TARGET_PATH="${1:-}"
@@ -73,7 +73,7 @@ if [ -d "$TARGET_PATH" ] && [ -f "$TARGET_PATH/metadata.env" ]; then
 
     # 3. Restore Original Home Launcher
     echo "==> [3/5] Restoring original Home launcher..."
-    if [ -n "${ORIG_HOME_PKG:-}" ] && [ "$ORIG_HOME_PKG" != "com.spidertv.launcher" ] && [ "$ORIG_HOME_PKG" != "none" ]; then
+    if [ -n "${ORIG_HOME_PKG:-}" ] && [ "$ORIG_HOME_PKG" != "com.tvlauncher.app" ] && [ "$ORIG_HOME_PKG" != "none" ]; then
         echo "    Re-enabling stock launcher: $ORIG_HOME_PKG"
         adb -s "$DEV" shell pm enable --user 0 "$ORIG_HOME_PKG" >/dev/null 2>&1 || true
         if [ -n "${ORIG_HOME_RES:-}" ]; then
@@ -95,11 +95,11 @@ if [ -d "$TARGET_PATH" ] && [ -f "$TARGET_PATH/metadata.env" ]; then
     # 5. Optional Clean Uninstall (Interactive)
     echo "==> [5/5] Optional App Cleanup..."
     if [ -t 0 ]; then
-        read -r -p "Do you want to uninstall Spider TV Launcher from TV? [y/N]: " REMOVE_LAUNCHER
+        read -r -p "Do you want to uninstall TVLauncher from TV? [y/N]: " REMOVE_LAUNCHER
         case "$REMOVE_LAUNCHER" in
             [yY][eE][sS]|[yY])
-                echo "    Uninstalling com.spidertv.launcher..."
-                adb -s "$DEV" shell pm uninstall com.spidertv.launcher >/dev/null 2>&1 || true
+                echo "    Uninstalling com.tvlauncher.app..."
+                adb -s "$DEV" shell pm uninstall com.tvlauncher.app >/dev/null 2>&1 || true
                 ;;
         esac
 

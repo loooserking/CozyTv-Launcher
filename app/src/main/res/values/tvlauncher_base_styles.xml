@@ -1,0 +1,7 @@
+<resources>
+    <style parent="android:Theme.Material.NoActionBar.Fullscreen" name="Theme.TvLauncher">
+        <item name="android:colorBackground">@color/launcher_background_top</item>
+        <item name="android:windowBackground">@color/launcher_background_top</item>
+        <item name="android:windowAnimationStyle">@null</item>
+    </style>
+</resources>

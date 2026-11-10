@@ -14,4 +14,4 @@ com.google.android.tvrecommendations
 # Diagnostic Feedback
 com.google.android.feedback
 
-# Stock Google TV Launcher (Replaced by Spider TV Launcher)
+# Stock Google TV Launcher (Replaced by TVLauncher)

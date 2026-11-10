@@ -1,21 +1,21 @@
-# Contributing to Spider TV Launcher 🕷️
+# Contributing to TVLauncher
 
 Thanks for wanting to help! Bug reports, new debloat profiles, fixes and ideas are all welcome.
 
 ## Ways to help
 
 - 🐞 **Report a bug** using the [Bug report](../../issues/new?template=bug_report.yml) template.
-- 💡 **Suggest a feature or a new suit/theme** using the [Feature request](../../issues/new?template=feature_request.yml) template.
+- 💡 **Suggest a feature or a visual theme** using the [Feature request](../../issues/new?template=feature_request.yml) template.
 - 📺 **Add or fix a TV profile** in `profiles/` (one package name per line). Tell us the TV model and Android version you tested on.
 - 🧑‍💻 **Send code**: look for issues labelled `good first issue` or `help wanted`.
-- 📸 **Share your setup**: screenshots of Spider TV running on your TV help a lot.
+- 📸 **Share your setup**: screenshots of TVLauncher running on your TV help a lot.
 
 ## Project layout
 
 | Path | What lives there |
 | --- | --- |
-| `app/src/main/java/com/spidertv/launcher/` | The launcher (Java, no extra libraries) |
-| `app/src/main/res/` | Layouts, drawables, the hero art and fonts |
+| `app/src/main/java/com/tvlauncher/app/` | The launcher (Java, no extra libraries) |
+| `app/src/main/res/` | Layouts, drawables, app icon, and fonts |
 | `profiles/` | Per-brand debloat lists |
 | `tools/` | `audit.sh`, `apply.sh`, `restore.sh` and the setup scripts |
 | `tools/protected.txt` | Packages that must never be disabled |
@@ -49,9 +49,9 @@ Please test on a real Android TV / Google TV device (or an Android TV emulator) 
 
 ## Art and branding rules
 
-This is a fan-made, unofficial project.
+This is an independent, open-source project.
 
-- Don't add official Marvel or Sony logos, movie stills, game screenshots or copied fan art.
+- Don't add official brand logos, movie stills, game screenshots or copied artwork.
 - New art must be your own and you must be allowed to share it under the MIT License. Say how it was made in your PR.
 - App logos (YouTube, Netflix and others) are only used to show which app is which.
 

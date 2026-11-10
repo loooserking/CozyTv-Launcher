@@ -12,4 +12,4 @@ android
 com.google.android.tv.frameworkpackagestubs
 com.google.android.tungsten.setupwraith
 com.google.android.setupwizard
-com.spidertv.launcher
+com.tvlauncher.app
