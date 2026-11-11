@@ -1,4 +1,4 @@
-package com.tvlauncher.app;
+package com.stvlauncher;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

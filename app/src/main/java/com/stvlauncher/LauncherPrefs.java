@@ -1,4 +1,4 @@
-package com.tvlauncher.app;
+package com.stvlauncher;
 
 import java.io.File;
 import java.io.IOException;

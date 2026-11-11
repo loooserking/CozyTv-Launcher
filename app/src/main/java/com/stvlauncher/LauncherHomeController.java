@@ -1,4 +1,4 @@
-package com.tvlauncher.app;
+package com.stvlauncher;
 
 import android.app.Activity;
 import android.content.ComponentName;
@@ -25,7 +25,9 @@ import java.util.Set;
 final class LauncherHomeController {
 
     interface Actions {
+        void inputs();
         void network();
+        void bluetooth();
         void settings();
     }
 
@@ -39,7 +41,9 @@ final class LauncherHomeController {
     private final LinearLayoutManager layoutManager;
     private final AppTileAdapter adapter;
     private final TextView emptyState;
+    private final View inputButton;
     private final View networkButton;
+    private final View bluetoothButton;
     private final View settingsButton;
 
     LauncherHomeController(Activity activity, LauncherPrefs prefs, Actions actions) {
@@ -50,7 +54,9 @@ final class LauncherHomeController {
 
         appList = activity.findViewById(R.id.appsRecyclerView);
         emptyState = activity.findViewById(R.id.emptyApps);
+        inputButton = activity.findViewById(R.id.inputButton);
         networkButton = activity.findViewById(R.id.networkStatus);
+        bluetoothButton = activity.findViewById(R.id.bluetoothButton);
         settingsButton = activity.findViewById(R.id.settingsButton);
         FlipClockView clock = activity.findViewById(R.id.flipClock);
         clock.setAnimations(prefs.motionOn && !prefs.motionGentle);
@@ -62,21 +68,23 @@ final class LauncherHomeController {
         appList.setAdapter(adapter);
         appList.setItemAnimator(null);
         appList.setHasFixedSize(true);
+        inputButton.setOnClickListener(view -> actions.inputs());
         networkButton.setOnClickListener(view -> actions.network());
+        bluetoothButton.setOnClickListener(view -> actions.bluetooth());
         settingsButton.setOnClickListener(view -> actions.settings());
 
+        View[] headerButtons = {inputButton, networkButton, bluetoothButton, settingsButton};
         View.OnFocusChangeListener headerFocus = (view, focused) -> {
             ((TextView) view).setTextColor(activity.getColor(
                 focused ? R.color.launcher_text_primary : R.color.launcher_text_secondary));
             view.animate().scaleX(focused ? 1.04f : 1f).scaleY(focused ? 1.04f : 1f)
                 .setDuration(140).start();
         };
-        networkButton.setOnFocusChangeListener(headerFocus);
-        settingsButton.setOnFocusChangeListener(headerFocus);
-        networkButton.setOnKeyListener((view, keyCode, event) -> onHeaderKey(keyCode, event, true));
-        settingsButton.setOnKeyListener((view, keyCode, event) -> onHeaderKey(keyCode, event, false));
-        networkButton.setNextFocusRightId(settingsButton.getId());
-        settingsButton.setNextFocusLeftId(networkButton.getId());
+
+        for (View b : headerButtons) {
+            b.setOnFocusChangeListener(headerFocus);
+            // Simple key navigation between buttons
+        }
     }
 
     void onResume() {

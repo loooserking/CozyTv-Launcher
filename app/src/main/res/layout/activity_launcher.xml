@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <com.tvlauncher.app.FlipClockView
+                <com.stvlauncher.FlipClockView
                     android:id="@+id/flipClock"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
@@ -62,9 +62,23 @@
                 android:paddingEnd="20dp">
 
                 <TextView
+                    android:id="@+id/inputButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/tvlauncher_inter_medium"
+                    android:includeFontPadding="false"
+                    android:text="@string/tvlauncher_sources_label"
+                    android:textColor="@color/launcher_text_secondary"
+                    android:textSize="14sp" />
+
+                <TextView
                     android:id="@+id/networkStatus"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
                     android:background="?android:attr/selectableItemBackground"
                     android:clickable="true"
                     android:focusable="true"
@@ -74,6 +88,20 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:text="@string/tvlauncher_net_wifi"
+                    android:textColor="@color/launcher_text_secondary"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/bluetoothButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="28dp"
+                    android:background="?android:attr/selectableItemBackground"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/tvlauncher_inter_medium"
+                    android:includeFontPadding="false"
+                    android:text="@string/tvlauncher_bluetooth_label"
                     android:textColor="@color/launcher_text_secondary"
                     android:textSize="14sp" />
 

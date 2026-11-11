@@ -1,4 +1,4 @@
-package com.tvlauncher.app;
+package com.stvlauncher;
 
 import android.graphics.drawable.GradientDrawable;
 import android.view.View;

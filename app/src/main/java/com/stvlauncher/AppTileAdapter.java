@@ -1,4 +1,4 @@
-package com.tvlauncher.app;
+package com.stvlauncher;
 
 import android.content.ComponentName;
 import android.content.Context;

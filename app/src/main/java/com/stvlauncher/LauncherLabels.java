@@ -1,4 +1,4 @@
-package com.tvlauncher.app;
+package com.stvlauncher;
 
 /**
  * Text helpers for the names drawn on home-screen tiles.

@@ -1,4 +1,4 @@
-package com.tvlauncher.app;
+package com.stvlauncher;
 
 import static android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET;
 import static android.net.NetworkCapabilities.NET_CAPABILITY_NOT_VPN;
@@ -71,8 +71,18 @@ public class LauncherHomeActivity extends android.app.Activity {
         networkStatus = findViewById(R.id.networkStatus);
         home = new LauncherHomeController(this, prefs, new LauncherHomeController.Actions() {
             @Override
+            public void inputs() {
+                launchIntent(Settings.ACTION_SETTINGS);
+            }
+
+            @Override
             public void network() {
                 launchNetworkTarget();
+            }
+
+            @Override
+            public void bluetooth() {
+                launchIntent(Settings.ACTION_BLUETOOTH_SETTINGS);
             }
 
             @Override
@@ -80,6 +90,7 @@ public class LauncherHomeActivity extends android.app.Activity {
                 launchSettings();
             }
         });
+
 
         packageChanges.addAction(Intent.ACTION_PACKAGE_ADDED);
         packageChanges.addAction(Intent.ACTION_PACKAGE_REMOVED);
@@ -198,6 +209,10 @@ public class LauncherHomeActivity extends android.app.Activity {
 
     private void launchSettings() {
         start(settingsIntent(Settings.ACTION_SETTINGS));
+    }
+    
+    private void launchIntent(String action) {
+        start(settingsIntent(action));
     }
 
     private Intent settingsIntent(String action) {

@@ -1,6 +1,6 @@
 <resources>
     <!-- ===== Identity / system entries ===== -->
-    <string name="app_name">TVLauncher</string>
+    <string name="app_name">stvlauncher</string>
     <string name="launcher_my_apps">My Apps</string>
     <string name="launcher_empty_apps">No TV apps are available.</string>
     <string name="tvlauncher_dream_title">Clock</string>
@@ -10,6 +10,7 @@
 
     <!-- ===== Top-right pills ===== -->
     <string name="tvlauncher_sources_label">Inputs</string>
+    <string name="tvlauncher_bluetooth_label">Bluetooth</string>
     <string name="tvlauncher_net_wifi">Wi-Fi</string>
     <string name="tvlauncher_net_ethernet">Ethernet</string>
     <string name="tvlauncher_net_offline">Offline</string>
